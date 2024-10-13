@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enhanced High-Speed Audio Player Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Enhanced High-Speed Audio Player Prototype</h1>
+
+  <!-- Player Section -->
+  <div class="player">
+    <input type="file" id="audioFileInput" accept="audio/*">
+    <div class="audio-container">
+      <audio id="audioElement" controls></audio>
+    </div>
+    <div class="controls">
+      <label for="speedControl">
+        Speed: <span id="speedValue">1.0x</span>
+      </label>
+      <input type="range" id="speedControl" min="0.5" max="10" value="1.0" step="0.1" title="Adjust playback speed">
+    </div>
+  </div>
+
+  <!-- Enhancements Section -->
+  <div class="enhancements">
+    <h2>Audio Enhancements</h2>
+
+    <!-- Noise Reduction -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="noiseReduction" checked>
+      <label for="noiseReduction" title="Reduces background noise to enhance speech clarity.">
+        Noise Reduction
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Reduction Level: <span id="noiseReductionValue">50</span>%
+          <input type="range" id="noiseReductionLevel" min="0" max="200" value="50" step="1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Phase Vocoder (Time-Stretching) -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="phaseVocoder" checked>
+      <label for="phaseVocoder" title="Advanced time-stretching for better intelligibility at high speeds.">
+        Phase Vocoder
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Time Stretch Factor: <span id="phaseVocoderValue">1.0</span>
+          <input type="range" id="phaseVocoderLevel" min="0.5" max="2.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Formant Preservation -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="formantPreservation" checked>
+      <label for="formantPreservation" title="Preserves natural speech formants when adjusting playback speed.">
+        Formant Preservation
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Preservation Level: <span id="formantPreservationValue">1.0</span>
+          <input type="range" id="formantPreservationLevel" min="0.5" max="2.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Dynamic Equalization -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="dynamicEqualization" checked>
+      <label for="dynamicEqualization" title="Automatically adjusts EQ settings based on audio content.">
+        Dynamic Equalization
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          EQ Intensity: <span id="dynamicEqIntensityValue">1.0</span>
+          <input type="range" id="dynamicEqIntensity" min="0.5" max="2.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Psychoacoustic Modeling -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="psychoacousticModeling" checked>
+      <label for="psychoacousticModeling" title="Applies processing based on human auditory perception.">
+        Psychoacoustic Modeling
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Modeling Intensity: <span id="psychoacousticModelingValue">1.0</span>
+          <input type="range" id="psychoacousticModelingLevel" min="0.5" max="2.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Spectral Shaping (Formant Enhancement) -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="spectralShaping" checked>
+      <label for="spectralShaping" title="Enhances critical speech frequencies, making speech sounds more distinct.">
+        Spectral Shaping
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Enhancement Level: <span id="spectralShapingValue">1.0</span>
+          <input type="range" id="spectralShapingLevel" min="0.5" max="4.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Transient Enhancement -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="transientEnhancement" checked>
+      <label for="transientEnhancement" title="Enhances transient elements of speech for clarity.">
+        Transient Enhancement
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Enhancement Level: <span id="transientEnhancementValue">1.0</span>
+          <input type="range" id="transientEnhancementLevel" min="0.5" max="2.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Automatic Gain Control (AGC) -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="automaticGainControl" checked>
+      <label for="automaticGainControl" title="Maintains consistent speech levels automatically.">
+        Automatic Gain Control (AGC)
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Target Level: <span id="agcTargetValue">1.0</span>
+          <input type="range" id="agcTargetLevel" min="0.5" max="2.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Consonant Emphasis -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="consonantEmphasis" checked>
+      <label for="consonantEmphasis" title="Enhances clarity by emphasizing consonant sounds.">
+        Consonant Emphasis
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Frequency: <span id="emphasisFreqValue">3000</span> Hz
+          <input type="range" id="emphasisFrequency" min="1000" max="5000" value="3000" step="100">
+        </label>
+        <label>
+          Gain: <span id="emphasisGainValue">10</span> dB
+          <input type="range" id="emphasisGain" min="0" max="20" value="10" step="1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Temporal Smoothing -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="temporalSmoothing" checked>
+      <label for="temporalSmoothing" title="Reduces rapid fluctuations in the audio signal.">
+        Temporal Smoothing
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Smoothing Level: <span id="temporalSmoothingValue">50</span>%
+          <input type="range" id="temporalSmoothingLevel" min="0" max="200" value="50" step="1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Frequency Compression -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="frequencyCompression" checked>
+      <label for="frequencyCompression" title="Compresses frequency spectrum to enhance speech perception.">
+        Frequency Compression
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Compression Level: <span id="frequencyCompressionValue">1.0</span>
+          <input type="range" id="frequencyCompressionLevel" min="0.5" max="4.0" value="1.0" step="0.1">
+        </label>
+      </div>
+    </div>
+
+    <!-- Dynamic Range Compression -->
+    <div class="enhancement-item">
+      <input type="checkbox" id="dynamicCompression" checked>
+      <label for="dynamicCompression" title="Balances audio levels to make softer sounds more audible.">
+        Dynamic Range Compression
+        <span class="setting-value">(Enabled)</span>
+      </label>
+      <div class="sub-controls">
+        <label>
+          Threshold: <span id="compressionThresholdValue">-50</span> dB
+          <input type="range" id="compressionThreshold" min="-100" max="0" value="-50" step="1">
+        </label>
+        <label>
+          Ratio: <span id="compressionRatioValue">12</span>:1
+          <input type="range" id="compressionRatio" min="1" max="20" value="12" step="1">
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Save and Load Settings -->
+  <div class="settings-controls">
+    <button id="saveSettings">Save Settings</button>
+    <button id="loadSettings">Load Settings</button>
+  </div>
+
+  <!-- Include JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+/* General Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  font-size: 16px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 600;
+  color: #007BFF;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.player, .enhancements {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.audio-container {
+  margin-top: 10px;
+}
+
+.audio-container audio {
+  width: 100%;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.enhancement-item {
+  margin-bottom: 30px;
+}
+
+.enhancement-item label {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+}
+
+.enhancement-item input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.5);
+}
+
+.setting-value {
+  font-weight: normal;
+  font-size: 0.9em;
+  color: #555;
+  margin-left: 10px;
+}
+
+.sub-controls {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.sub-controls label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .enhancement-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
