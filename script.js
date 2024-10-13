@@ -580,89 +580,111 @@ function saveSettings() {
     compressionThreshold: compressionThreshold.value,
     compressionRatio: compressionRatio.value,
   };
-  localStorage.setItem('audioPlayerSettings', JSON.stringify(settings));
-  alert('Settings saved successfully!');
+  const settingsJSON = JSON.stringify(settings, null, 2); // Pretty-print with indentation
+  const blob = new Blob([settingsJSON], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'audioPlayerSettings.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert('Settings have been saved to a file.');
 }
 
 function loadSettings() {
-  const settings = JSON.parse(localStorage.getItem('audioPlayerSettings'));
-  if (settings) {
-    // Playback rate
-    speedControl.value = settings.playbackRate;
-    audioElement.playbackRate = parseFloat(settings.playbackRate);
-    speedValue.textContent = parseFloat(settings.playbackRate).toFixed(1) + 'x';
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json';
+  input.onchange = function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const settingsJSON = e.target.result;
+          const settings = JSON.parse(settingsJSON);
+          // Playback rate
+          speedControl.value = settings.playbackRate;
+          audioElement.playbackRate = parseFloat(settings.playbackRate);
+          speedValue.textContent = parseFloat(settings.playbackRate).toFixed(1) + 'x';
+      
+          // Noise Reduction
+          noiseReduction.checked = settings.noiseReduction;
+          noiseReductionLevel.value = settings.noiseReductionLevel;
+          noiseReductionValue.textContent = settings.noiseReductionLevel;
+      
+          // Phase Vocoder
+          phaseVocoder.checked = settings.phaseVocoder;
+          phaseVocoderLevel.value = settings.phaseVocoderLevel;
+          phaseVocoderValue.textContent = settings.phaseVocoderLevel;
+      
+      
+          // Formant Preservation
+          formantPreservation.checked = settings.formantPreservation;
+          formantPreservationLevel.value = settings.formantPreservationLevel;
+          formantPreservationValue.textContent = settings.formantPreservationLevel;
+      
+          // Dynamic Equalization
+          dynamicEqualization.checked = settings.dynamicEqualization;
+          dynamicEqIntensity.value = settings.dynamicEqIntensity;
+          dynamicEqIntensityValue.textContent = settings.dynamicEqIntensity;
+      
+          // Psychoacoustic Modeling
+          psychoacousticModeling.checked = settings.psychoacousticModeling;
+          psychoacousticModelingLevel.value = settings.psychoacousticModelingLevel;
+          psychoacousticModelingValue.textContent = settings.psychoacousticModelingLevel;
+      
+          // Spectral Shaping
+          spectralShaping.checked = settings.spectralShaping;
+          spectralShapingLevel.value = settings.spectralShapingLevel;
+          spectralShapingValue.textContent = settings.spectralShapingLevel;
+      
+          // Transient Enhancement
+          transientEnhancement.checked = settings.transientEnhancement;
+          transientEnhancementLevel.value = settings.transientEnhancementLevel;
+          transientEnhancementValue.textContent = settings.transientEnhancementLevel;
+      
+          // Automatic Gain Control
+          automaticGainControl.checked = settings.automaticGainControl;
+          agcTargetLevel.value = settings.agcTargetLevel;
+          agcTargetValue.textContent = settings.agcTargetLevel;
+      
+          // Consonant Emphasis
+          consonantEmphasis.checked = settings.consonantEmphasis;
+          emphasisFrequency.value = settings.emphasisFrequency;
+          emphasisFreqValue.textContent = settings.emphasisFrequency;
+          emphasisGain.value = settings.emphasisGain;
+          emphasisGainValue.textContent = settings.emphasisGain;
+      
+          // Temporal Smoothing
+          temporalSmoothing.checked = settings.temporalSmoothing;
+          temporalSmoothingLevel.value = settings.temporalSmoothingLevel;
+          temporalSmoothingValue.textContent = settings.temporalSmoothingLevel;
+      
+          // Frequency Compression
+          frequencyCompression.checked = settings.frequencyCompression;
+          frequencyCompressionLevel.value = settings.frequencyCompressionLevel;
+          frequencyCompressionValue.textContent = settings.frequencyCompressionLevel;
+      
+          // Dynamic Range Compression
+          dynamicCompression.checked = settings.dynamicCompression;
+          compressionThreshold.value = settings.compressionThreshold;
+          compressionThresholdValue.textContent = settings.compressionThreshold;
+          compressionRatio.value = settings.compressionRatio;
+          compressionRatioValue.textContent = settings.compressionRatio;
 
-    // Noise Reduction
-    noiseReduction.checked = settings.noiseReduction;
-    noiseReductionLevel.value = settings.noiseReductionLevel;
-    noiseReductionValue.textContent = settings.noiseReductionLevel;
+          updateAudioRouting();
+          updateCheckboxLabels();
 
-    // Phase Vocoder
-    phaseVocoder.checked = settings.phaseVocoder;
-    phaseVocoderLevel.value = settings.phaseVocoderLevel;
-    phaseVocoderValue.textContent = settings.phaseVocoderLevel;
-
-
-    // Formant Preservation
-    formantPreservation.checked = settings.formantPreservation;
-    formantPreservationLevel.value = settings.formantPreservationLevel;
-    formantPreservationValue.textContent = settings.formantPreservationLevel;
-
-    // Dynamic Equalization
-    dynamicEqualization.checked = settings.dynamicEqualization;
-    dynamicEqIntensity.value = settings.dynamicEqIntensity;
-    dynamicEqIntensityValue.textContent = settings.dynamicEqIntensity;
-
-    // Psychoacoustic Modeling
-    psychoacousticModeling.checked = settings.psychoacousticModeling;
-    psychoacousticModelingLevel.value = settings.psychoacousticModelingLevel;
-    psychoacousticModelingValue.textContent = settings.psychoacousticModelingLevel;
-
-    // Spectral Shaping
-    spectralShaping.checked = settings.spectralShaping;
-    spectralShapingLevel.value = settings.spectralShapingLevel;
-    spectralShapingValue.textContent = settings.spectralShapingLevel;
-
-    // Transient Enhancement
-    transientEnhancement.checked = settings.transientEnhancement;
-    transientEnhancementLevel.value = settings.transientEnhancementLevel;
-    transientEnhancementValue.textContent = settings.transientEnhancementLevel;
-
-    // Automatic Gain Control
-    automaticGainControl.checked = settings.automaticGainControl;
-    agcTargetLevel.value = settings.agcTargetLevel;
-    agcTargetValue.textContent = settings.agcTargetLevel;
-
-    // Consonant Emphasis
-    consonantEmphasis.checked = settings.consonantEmphasis;
-    emphasisFrequency.value = settings.emphasisFrequency;
-    emphasisFreqValue.textContent = settings.emphasisFrequency;
-    emphasisGain.value = settings.emphasisGain;
-    emphasisGainValue.textContent = settings.emphasisGain;
-
-    // Temporal Smoothing
-    temporalSmoothing.checked = settings.temporalSmoothing;
-    temporalSmoothingLevel.value = settings.temporalSmoothingLevel;
-    temporalSmoothingValue.textContent = settings.temporalSmoothingLevel;
-
-    // Frequency Compression
-    frequencyCompression.checked = settings.frequencyCompression;
-    frequencyCompressionLevel.value = settings.frequencyCompressionLevel;
-    frequencyCompressionValue.textContent = settings.frequencyCompressionLevel;
-
-    // Dynamic Range Compression
-    dynamicCompression.checked = settings.dynamicCompression;
-    compressionThreshold.value = settings.compressionThreshold;
-    compressionThresholdValue.textContent = settings.compressionThreshold;
-    compressionRatio.value = settings.compressionRatio;
-    compressionRatioValue.textContent = settings.compressionRatio;
-
-    updateAudioRouting();
-    updateCheckboxLabels();
-
-    alert('Settings loaded successfully!');
-  } else {
-    alert('No saved settings found.');
-  }
+          alert('Settings have been loaded from the file!');
+        } catch (error) {
+          alert('Failed to load settings. The file may be corrupted.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+  input.click();
 }
-
