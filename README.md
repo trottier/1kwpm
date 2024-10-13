@@ -2,8 +2,6 @@
 
 An advanced web-based audio player designed to improve speech intelligibility at high playback speeds through a suite of customizable audio enhancements.
 
-![Audio Player Screenshot](screenshot.png)
-
 ## Table of Contents
 
 - [Features](#features)
@@ -156,7 +154,3 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 *Note: Some advanced audio processing features like the Phase Vocoder and Formant Preservation are simplified due to the limitations of the Web Audio API. Future enhancements may involve integrating external libraries or custom audio processing to achieve more accurate implementations.*
-
----
-
-- **Update the live demo link** once the project is hosted.
