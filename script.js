@@ -186,19 +186,21 @@ function initDynamicEqualizationFilters() {
 // Update audio routing based on current settings
 function updateAudioRouting() {
   // Disconnect nodes
-  gainNode.disconnect();
-  noiseReductionNode.disconnect();
-  agcNode.disconnect();
-  compressorNode.disconnect();
-  phaseVocoderNode.disconnect();
-  formantPreservationNode.disconnect();
-  temporalSmoothingNode.disconnect();
-  dynamicEqFilters.forEach(filter => filter.disconnect());
-  spectralShapingNode.disconnect();
-  consonantEmphasisNode.disconnect();
-  frequencyCompressionNode.disconnect();
-  transientEnhancementNode.disconnect();
-  psychoacousticNode.disconnect();
+  if (gainNode) gainNode.disconnect();
+  if (noiseReductionNode) noiseReductionNode.disconnect();
+  if (agcNode) agcNode.disconnect();
+  if (compressorNode) compressorNode.disconnect();
+  if (phaseVocoderNode) phaseVocoderNode.disconnect();
+  if (formantPreservationNode) formantPreservationNode.disconnect();
+  if (temporalSmoothingNode) temporalSmoothingNode.disconnect();
+  if (dynamicEqFilters && dynamicEqFilters.length > 0) {
+    dynamicEqFilters.forEach(filter => filter.disconnect());
+  }
+  if (spectralShapingNode) spectralShapingNode.disconnect();
+  if (consonantEmphasisNode) consonantEmphasisNode.disconnect();
+  if (frequencyCompressionNode) frequencyCompressionNode.disconnect();
+  if (transientEnhancementNode) transientEnhancementNode.disconnect();
+  if (psychoacousticNode) psychoacousticNode.disconnect();
 
   let currentNode = gainNode;
 
@@ -605,6 +607,10 @@ function loadSettings() {
         try {
           const settingsJSON = e.target.result;
           const settings = JSON.parse(settingsJSON);
+
+          // Initialize audio context and nodes
+          initializeAudioContext();
+
           // Playback rate
           speedControl.value = settings.playbackRate;
           audioElement.playbackRate = parseFloat(settings.playbackRate);
